@@ -12,6 +12,7 @@ import (
 	"sync/atomic"
 	"syscall"
 	"time"
+	"runtime"
 
 	"golang.org/x/sys/unix"
 )
@@ -57,7 +58,7 @@ func isStatXUnsupported(err error) bool {
 
 // Stat returns the Timespec for the given filename.
 func Stat(name string) (Timespec, error) {
-	if isStatXSupported() {
+	if isStatXSupported() && runtime.GOOS == "linux" {
 		ts, err := statX(name)
 		if err == nil {
 			return ts, nil
