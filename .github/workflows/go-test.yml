@@ -19,13 +19,13 @@ jobs:
             js: true
     steps:
       - id: go-test
-        uses: alist-org/actions/go-test@main
+        uses: djherbis/actions/go-test@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           coveralls_parallel: true
         if: ${{ !matrix.js }}
       - id: go-test-js
-        uses: alist-org/actions/go-test-js@main
+        uses: djherbis/actions/go-test-js@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           coveralls_parallel: true
