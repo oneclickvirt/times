@@ -1,4 +1,4 @@
-module github.com/djherbis/times
+module github.com/alist-org/times
 
 go 1.16
 

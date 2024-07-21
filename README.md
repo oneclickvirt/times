@@ -1,13 +1,13 @@
 times 
 ==========
 
-[![GoDoc](https://godoc.org/github.com/djherbis/times?status.svg)](https://godoc.org/github.com/djherbis/times)
-[![Release](https://img.shields.io/github/release/djherbis/times.svg)](https://github.com/djherbis/times/releases/latest)
+[![GoDoc](https://godoc.org/github.com/alist-org/times?status.svg)](https://godoc.org/github.com/alist-org/times)
+[![Release](https://img.shields.io/github/release/alist-org/times.svg)](https://github.com/alist-org/times/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.txt)
-[![go test](https://github.com/djherbis/times/actions/workflows/go-test.yml/badge.svg)](https://github.com/djherbis/times/actions/workflows/go-test.yml)
-[![Coverage Status](https://coveralls.io/repos/djherbis/times/badge.svg?branch=master)](https://coveralls.io/r/djherbis/times?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/djherbis/times)](https://goreportcard.com/report/github.com/djherbis/times)
-[![Sourcegraph](https://sourcegraph.com/github.com/djherbis/times/-/badge.svg)](https://sourcegraph.com/github.com/djherbis/times?badge)
+[![go test](https://github.com/alist-org/times/actions/workflows/go-test.yml/badge.svg)](https://github.com/alist-org/times/actions/workflows/go-test.yml)
+[![Coverage Status](https://coveralls.io/repos/alist-org/times/badge.svg?branch=master)](https://coveralls.io/r/alist-org/times?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/alist-org/times)](https://goreportcard.com/report/github.com/alist-org/times)
+[![Sourcegraph](https://sourcegraph.com/github.com/alist-org/times/-/badge.svg)](https://sourcegraph.com/github.com/alist-org/times?badge)
 
 Usage
 ------------
@@ -21,7 +21,7 @@ package main
 import (
   "log"
 
-  "github.com/djherbis/times"
+  "github.com/alist-org/times"
 )
 
 func main() {
@@ -63,5 +63,5 @@ only return false on those platforms when the syscall used to obtain them fails.
 Installation
 ------------
 ```sh
-go get -u github.com/djherbis/times
+go get -u github.com/alist-org/times
 ```
