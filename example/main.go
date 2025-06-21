@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/alist-org/times"
+	"github.com/oneclickvirt/times"
 )
 
 func main() {

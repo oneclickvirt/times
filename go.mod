@@ -1,4 +1,4 @@
-module github.com/alist-org/times
+module github.com/oneclickvirt/times
 
 go 1.16
 
