@@ -25,6 +25,7 @@ jobs:
     - name: Run native tests with race detection
       if: '!matrix.js'
       run: go test -race -count=1 -coverprofile=coverage.out -covermode=atomic ./...
+      shell: bash
     - name: Run JavaScript WebAssembly tests
       if: matrix.js
       shell: bash
