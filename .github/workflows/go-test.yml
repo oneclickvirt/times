@@ -1,39 +1,54 @@
 name: go test
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - master
-  schedule:
-    - cron: '0 17 * * 1'  # https://crontab.guru/#0_17_*_*_1
-
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest,  windows-latest, macos-latest]
-        js: [false]
+        os:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+        js:
+        - false
         include:
-          - os: ubuntu-latest
-            js: true
+        - os: ubuntu-latest
+          js: true
     steps:
-      - id: go-test
-        uses: djherbis/actions/go-test@0d4e8fd377d27db1e3354e43c66da67750147768 # main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          coveralls_parallel: true
-        if: ${{ !matrix.js }}
-      - id: go-test-js
-        uses: djherbis/actions/go-test-js@0d4e8fd377d27db1e3354e43c66da67750147768 # main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          coveralls_parallel: true
-        if: ${{ matrix.js }}
-  finish:
-      needs: build
-      runs-on: ubuntu-latest
-      steps:
-        - uses: shogo82148/actions-goveralls@77a1912dca42260ee3e97f61bd13ea7ef40baa93 # v1.11.2
-          with:
-            parallel-finished: true
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      with:
+        go-version: stable
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      if: matrix.js
+      with:
+        node-version: '24'
+    - name: Run native tests with race detection
+      if: '!matrix.js'
+      run: go test -race -count=1 -coverprofile=coverage.out -covermode=atomic ./...
+    - name: Run JavaScript WebAssembly tests
+      if: matrix.js
+      shell: bash
+      env:
+        GOOS: js
+        GOARCH: wasm
+      run: |
+        set -euo pipefail
+        launcher="$(go env GOROOT)/lib/wasm/go_js_wasm_exec"
+        if [[ ! -f "$launcher" ]]; then launcher="$(go env GOROOT)/misc/wasm/go_js_wasm_exec"; fi
+        [[ -x "$launcher" ]]
+        go test -count=1 -exec="$launcher" -coverprofile=coverage.out ./...
+    - name: Save local coverage
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: coverage-${{ matrix.os }}-${{ matrix.js }}
+        path: coverage.out
+        if-no-files-found: error
+    env:
+      GOPROXY: https://proxy.golang.org|direct
+'on':
+  workflow_dispatch: null
+  push:
+    branches:
+    - master
+  schedule:
+  - cron: 0 17 * * 1
