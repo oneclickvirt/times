@@ -19,13 +19,13 @@ jobs:
             js: true
     steps:
       - id: go-test
-        uses: djherbis/actions/go-test@main
+        uses: djherbis/actions/go-test@0d4e8fd377d27db1e3354e43c66da67750147768 # main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           coveralls_parallel: true
         if: ${{ !matrix.js }}
       - id: go-test-js
-        uses: djherbis/actions/go-test-js@main
+        uses: djherbis/actions/go-test-js@0d4e8fd377d27db1e3354e43c66da67750147768 # main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           coveralls_parallel: true
@@ -34,6 +34,6 @@ jobs:
       needs: build
       runs-on: ubuntu-latest
       steps:
-        - uses: shogo82148/actions-goveralls@v1
+        - uses: shogo82148/actions-goveralls@77a1912dca42260ee3e97f61bd13ea7ef40baa93 # v1.11.2
           with:
             parallel-finished: true
